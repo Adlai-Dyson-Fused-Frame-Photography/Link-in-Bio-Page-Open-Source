@@ -1,8 +1,7 @@
 # A Free to use Link in Bio Page
 #### Created by Adlai Dyson | Fused Frame Photography
 
-Created using HTML and Tailwind CSS
-See example [here](https://adffp.uk/linktree-example)
+Created using HTML and Tailwind CSS; see example [here](https://adffp.uk/linktree-example)
 
 ### Features
 - All elements are easily editable (comments are left in the file to ease editing)
