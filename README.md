@@ -14,7 +14,8 @@ See example [here](https://adffp.uk/linktree-example)
 
 ### How to edit & deploy?
 The best way to start using this template is to:
-- Fork this repo,
+- Select "**Use this template**,
+- Setup and configure the repo,
 - Edit the **index.html** file locally (in an app of your choice, Notepad++,. CotEditor, VS Code...),
 - Commit and push,
 - Then publish to a platform of your choice (**Cloudflare Pages or Github Pages recommended**)
