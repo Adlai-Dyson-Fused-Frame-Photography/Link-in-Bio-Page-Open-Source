@@ -2,30 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Change Website Title Here -->
-  <title>NAME | Link in Bio</title>
+  <!-- CHANGE: Website Title Here -->
+  <title>Your Name | Link in Bio Template</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- Change the website favicon here -->
-  <link rel="icon" href="https://FAVICON-URL" />
+  <!-- CHANGE: Website favicon here (upload an image and paste the link) -->
+  <link rel="icon" href="https://via.placeholder.com/500" />
 
-  <!-- Tailwind CSS via CDN (used for simplicity) -->
+  <!-- Tailwind CSS Framework (Do not remove) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- FontAwesome Free Kit: Change to your own kit (free account) -->
-  <script src="https://kit.fontawesome.com/KITNUMBER.js" crossorigin="anonymous"></script>
-  
-  <!-- Use this space to add other scripts such as analytics (Umami Recommended) -->
+  <!-- FontAwesome Icons: CHANGE to your own Kit URL to ensure icons always load -->
+  <script src="https://kit.fontawesome.com/05718c5f0d.js" crossorigin="anonymous"></script>
 
+  <!-- ======================================================= -->
+  <!-- ⚙️ GLOBAL SETTINGS (EASY CUSTOMISATION) ⚙️                -->
+  <!-- ======================================================= -->
+  <!-- You do not need to know HTML to edit this section!      -->
   <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    :root {
+      /* --- TOGGLES --- */
+      /* To hide the top banner, change 'flex' to 'none' */
+      --show-banner: flex; 
+      
+      /* To hide the background glowing pulses, change 'block' to 'none' */
+      --show-pulses: block; 
+
+      /* --- SHAPES --- */
+      /* Control how round the elements are: 
+         0px = Square, 12px = Slightly Rounded, 24px = Bento, 9999px = Pill */
+      --radius-bento: 24px;   /* Main large cards */
+      --radius-icon: 16px;    /* Small icon boxes inside cards */
+      --radius-button: 16px;  /* Social media buttons */
     }
-    .animate-fade-in {
-      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    /* Apply Toggles (Do not edit these lines) */
+    #top-banner { display: var(--show-banner); }
+    #ambient-pulses { display: var(--show-pulses); }
+  </style>
+
+  <!-- Tailwind Configuration for Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              /* Change these hex codes to match your brand */
+              primary: '#94fdf8',   /* Main highlight color (e.g. Cyan) */
+              secondary: '#3b82f6', /* Second gradient color (e.g. Blue) */
+              bg: '#020617',        /* Background color (e.g. Dark Slate) */
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- ======================================================= -->
+
+  <!-- Custom Animations & Glass Effect -->
+  <style>
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-bento-in {
+      animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
     }
+    /* Staggered Delays for elements loading in */
     .delay-100 { animation-delay: 100ms; }
     .delay-200 { animation-delay: 200ms; }
     .delay-300 { animation-delay: 300ms; }
@@ -34,309 +83,215 @@
     .delay-600 { animation-delay: 600ms; }
     .delay-700 { animation-delay: 700ms; }
     .delay-800 { animation-delay: 800ms; }
-    .delay-900 { animation-delay: 900ms; }
-    .delay-1000 { animation-delay: 1000ms; }
-
-    /* Fix for the "Blue Square" glitch - forces GPU rendering for the blur */
-    .glow-layer {
-      will-change: filter, opacity;
-      transform: translateZ(0);
-      backface-visibility: hidden;
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    
+    /* Glassmorphism Panel Style */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.35); 
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.12); 
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.5);
+      will-change: transform, box-shadow;
     }
+    .glow-layer {
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity;
+    }
+    .bento-card:hover .glow-layer { opacity: 1; }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-[#94fdf8] selection:text-slate-900">
+<body class="bg-brand-bg text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-primary selection:text-slate-900 relative overflow-x-hidden">
 
-  <!--
-  Top Banner/Call to Action:
-  To edit the link chaneg the URL after the href text
-  To edit the visible text, change whats between the > and <i
-  -->
+  <!-- TOP BANNER: Edit text and link here -->
   <a
-    href="http://adlaidyson.co.uk/MHFDonate"
-    class="w-full bg-slate-900/80 backdrop-blur-md text-slate-300 text-sm py-2.5 text-center hover:bg-slate-800 hover:text-white transition-colors border-b border-slate-800/50 z-50 sticky top-0"
+    id="top-banner"
+    href="#"
+    class="w-full bg-slate-900/80 backdrop-blur-md text-slate-300 text-sm py-3 text-center hover:bg-slate-800 hover:text-white transition-all border-b border-slate-800/50 z-50 sticky top-0 font-medium tracking-wide items-center justify-center gap-2 group"
   >
-    Donate to Mental Health Foundation <i class="fa-solid fa-arrow-right ml-1 text-[#94fdf8]"></i>
+    📢 Your Announcement Here 
+    <i class="fa-solid fa-arrow-right text-brand-primary group-hover:translate-x-1 transition-transform"></i>
   </a>
 
-  <!--
-  Background Pulse Glows:
-  To edit the colours, change [#94fdf8] and bg-blue-600 within each div section
-  -->
-  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-    <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#94fdf8] rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-pulse" style="animation-duration: 4s;"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-pulse" style="animation-duration: 5s;"></div>
+  <!-- AMBIENT PULSES (Controlled via the Settings Block at the top) -->
+  <div id="ambient-pulses" class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+    <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-brand-primary rounded-full mix-blend-screen filter blur-[150px] opacity-[0.06] animate-pulse" style="animation-duration: 8s;"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-brand-secondary rounded-full mix-blend-screen filter blur-[150px] opacity-[0.06] animate-pulse" style="animation-duration: 12s;"></div>
   </div>
 
-  <main class="w-full max-w-md mx-auto flex flex-col items-center space-y-8 animate-fade-in my-8 p-4">
+  <main class="w-full max-w-4xl mx-auto flex flex-col items-center pt-12 pb-8 px-4 sm:px-6">
     
-    <!-- Profile Section -->
-    <div class="text-center space-y-4">
-      <div class="relative w-32 h-32 mx-auto group cursor-pointer">
-        <!-- Profile Picture Glow -->
-        <div class="absolute inset-0 bg-[#94fdf8] rounded-full blur-lg opacity-20 group-hover:opacity-60 transition-opacity duration-500"></div>
-        <!-- Profile Picture Image, change the image URL inside of src="" -->
+    <!-- PROFILE HEADER -->
+    <div class="text-center space-y-4 mb-10 animate-bento-in">
+      <div class="relative w-36 h-36 mx-auto group cursor-pointer animate-float">
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-full blur-xl opacity-20 group-hover:opacity-50 transition-opacity duration-500"></div>
+        <!-- CHANGE: Profile Image Link -->
         <img 
-          src="https://cdn-eu.fusedframe.co.uk/main-logos/png/portrait-circle-popout.png" 
-          alt="Adlai Dyson" 
-          class="relative w-full h-full object-cover rounded-full border-2 border-slate-700 group-hover:border-[#94fdf8] transition-colors duration-300 shadow-xl bg-slate-900"
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" 
+          alt="Profile Picture" 
+          class="relative w-full h-full object-cover rounded-full border border-slate-700/50 group-hover:border-brand-primary/50 transition-colors duration-500 shadow-2xl bg-slate-900 z-10"
         />
       </div>
       
-      <!-- Name and Title -->
       <div>
-        <h1 class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#94fdf8] to-blue-400">NAME</h1>
-        <p class="text-slate-400 mt-1">Short Bio or Tagline Here</p>
+        <!-- CHANGE: Name -->
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-primary to-brand-secondary pb-1">
+          Your Name
+        </h1>
+        <!-- CHANGE: Tagline / Bio -->
+        <p class="text-slate-400 mt-2 font-medium">Digital Creator & Designer</p>
       </div>
     </div>
 
-    <div class="w-full space-y-3.5">
+    <!-- MAIN LINKS GRID: Replace the # with your link for that section-->
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 auto-rows-auto">
 
-      <!--
-      LINKS/BUTTONS SECTION:
-      Each button is its own section containing different elements
-      To change the link, edit the URL in the first line of each button starting with href="
-      To change the Accent Colour, Text Colour and Glow Colour, edit the Hex values in each element; for example [#94fdf8]
-      To change the button title, change the Heading 3 (h3) text
-      To change the button subtitle, change the paragraph (p) text
-      To hide the subtitle, add hidden to the class before the text.
-      -->
+      <!-- MAIN LINK CARD (Spans 2 columns) -->
+      <a href="#" class="bento-card group relative col-span-1 sm:col-span-2 md:col-span-2 rounded-[var(--radius-bento)] p-6 glass-panel hover:-translate-y-1 transition-all duration-300 animate-bento-in delay-100 flex flex-col justify-between overflow-hidden min-h-[160px]">
+        <div class="glow-layer absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 opacity-0 z-0"></div>
+        
+        <div class="relative z-10 flex justify-between items-start">
+          <div class="bg-slate-950/80 p-3 rounded-[var(--radius-icon)] border border-slate-800 shadow-inner">
+            <i class="fa-solid fa-globe text-2xl text-brand-primary"></i>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+            <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-slate-900 transition-transform group-hover:-rotate-45"></i>
+          </div>
+        </div>
 
-      <!-- Official Website -->
-      <a href="https://www.fusedframe.co.uk" class="animate-fade-in delay-100 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-[#94fdf8] flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-solid fa-globe text-lg"></i>
-          </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-[#94fdf8] transition-colors">Official Website</h3>
-            <p class="text-xs text-slate-400">Portfolio, About Me & More</p>
-          </div>
-          <div class="w-8 h-8 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-[#94fdf8]/20 transition-colors">
-            <i class="fa-solid fa-arrow-right text-sm text-slate-400 group-hover:text-[#94fdf8] transition-transform group-hover:-rotate-45"></i>
-          </div>
+        <div class="relative z-10 mt-6">
+          <h3 class="text-2xl font-bold text-white group-hover:text-brand-primary transition-colors">My Portfolio</h3>
+          <p class="text-sm text-slate-400 mt-1">Check out my latest work</p>
         </div>
       </a>
 
-      <!-- Gallery Website -->
-      <a href="https://adffp.uk/galleries" class="animate-fade-in delay-200 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-teal-400 flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-solid fa-images text-lg"></i>
+      <!-- SECONDARY LINK CARD -->
+      <a href="#" class="bento-card group relative col-span-1 rounded-[var(--radius-bento)] p-6 glass-panel hover:-translate-y-1 transition-all duration-300 animate-bento-in delay-200 flex flex-col justify-between overflow-hidden min-h-[160px]">
+        <div class="glow-layer absolute inset-0 bg-gradient-to-br from-teal-400/10 to-emerald-600/10 opacity-0 z-0"></div>
+        
+        <div class="relative z-10 flex justify-between items-start">
+          <div class="bg-slate-950/80 p-3 rounded-[var(--radius-icon)] border border-slate-800 shadow-inner">
+            <i class="fa-solid fa-images text-2xl text-teal-400"></i>
           </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-teal-300 transition-colors">Gallery Website</h3>
-            <p class="text-xs text-slate-400">Click here to find your gallery</p>
-          </div>
-          <div class="w-8 h-8 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors">
-            <i class="fa-solid fa-arrow-right text-sm text-slate-400 group-hover:text-teal-300 transition-transform group-hover:-rotate-45"></i>
-          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-teal-400 transition-colors"></i>
+        </div>
+
+        <div class="relative z-10 mt-6">
+          <h3 class="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">Galleries</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-1">View my collections</p>
         </div>
       </a>
 
-      <!-- LinkedIn -->
-      <a href="https://adffp.uk/linkedin" class="animate-fade-in delay-300 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-blue-500 flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-brands fa-linkedin-in text-xl"></i>
+      <!-- SOCIAL HUB -->
+      <div class="bento-card col-span-1 sm:col-span-2 md:col-span-3 rounded-[var(--radius-bento)] p-6 glass-panel animate-bento-in delay-300 relative overflow-hidden">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          
+          <div class="md:w-1/3">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-hashtag text-brand-primary"></i> Connect
+            </h3>
+            <p class="text-sm text-slate-400 mt-1">Find me across the web</p>
           </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">LinkedIn</h3>
+
+          <!-- Social Icons: Change href="#" to your actual profiles -->
+          <div class="flex-1 flex flex-wrap gap-3 md:justify-end">
+            <a href="#" title="LinkedIn" class="w-12 h-12 rounded-[var(--radius-button)] bg-slate-900 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] hover:-translate-y-1 transition-all duration-300 shadow-sm">
+              <i class="fa-brands fa-linkedin-in text-xl"></i>
+            </a>
+            <a href="#" title="Instagram" class="w-12 h-12 rounded-[var(--radius-button)] bg-slate-900 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-gradient-to-tr hover:from-orange-500 hover:via-pink-500 hover:to-purple-500 hover:text-white hover:border-transparent hover:-translate-y-1 transition-all duration-300 shadow-sm">
+              <i class="fa-brands fa-instagram text-xl"></i>
+            </a>
+            <a href="#" title="TikTok" class="w-12 h-12 rounded-[var(--radius-button)] bg-slate-900 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-black hover:text-white hover:border-[#00f2fe] hover:-translate-y-1 transition-all duration-300 shadow-sm">
+              <i class="fa-brands fa-tiktok text-xl"></i>
+            </a>
+            <a href="#" title="YouTube" class="w-12 h-12 rounded-[var(--radius-button)] bg-slate-900 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] hover:-translate-y-1 transition-all duration-300 shadow-sm">
+              <i class="fa-brands fa-youtube text-xl"></i>
+            </a>
+            <a href="#" title="X" class="w-12 h-12 rounded-[var(--radius-button)] bg-slate-900 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-black hover:text-white hover:border-slate-600 hover:-translate-y-1 transition-all duration-300 shadow-sm">
+              <i class="fa-brands fa-x-twitter text-xl"></i>
+            </a>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-sm text-slate-600 group-hover:text-blue-400 transition-colors"></i>
-        </div>
-      </a>
 
-      <!-- Blog -->
-      <a href="https://adffp.uk/blog" class="animate-fade-in delay-400 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-blue-400 flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-solid fa-blog text-lg"></i>
-          </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-[#94fdf8] transition-colors">Blog</h3>
-            <p class="hidden text-xs text-slate-400">Follow for my journey and photography tips.</p>
-          </div>
-          <div class="w-8 h-8 rounded-full bg-slate-800/50 flex items-center justify-center group-hover:bg-[#94fdf8]/20 transition-colors">
-            <i class="fa-solid fa-arrow-right text-sm text-slate-400 group-hover:text-[#94fdf8] transition-transform group-hover:-rotate-45"></i>
-          </div>
-        </div>
-      </a>
-
-      <!-- Instagram -->
-      <a href="https://adffp.uk/instagram" class="animate-fade-in delay-500 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-pink-500 flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-brands fa-instagram text-xl"></i>
-          </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-pink-400 transition-colors">Instagram</h3>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-sm text-slate-600 group-hover:text-pink-400 transition-colors"></i>
-        </div>
-      </a>
-
-      <!-- Other Socials Toggle -->
-      <div class="animate-fade-in delay-600 w-full">
-        <button 
-          onclick="document.getElementById('other-socials').classList.toggle('hidden'); document.getElementById('socials-arrow').classList.toggle('rotate-180');"
-          class="w-full text-left block group relative"
-        >
-          <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-50 blur-2xl transition-opacity duration-300 glow-layer"></div>
-          <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-            <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-slate-300 flex items-center justify-center w-10 h-10 shadow-inner">
-              <i class="fa-solid fa-hashtag text-lg"></i>
-            </div>
-            <div class="ml-4 flex-grow">
-              <h3 class="font-semibold text-slate-100 group-hover:text-[#94fdf8] transition-colors">Other Social Media</h3>
-            </div>
-            <div class="w-8 h-8 flex items-center justify-center transition-colors">
-              <i id="socials-arrow" class="fa-solid fa-chevron-down text-sm text-slate-400 transition-transform duration-300"></i>
-            </div>
-          </div>
-        </button>
-
-        <div id="other-socials" class="hidden mt-3 space-y-3.5 pl-4 border-l-2 border-slate-800 ml-4">
-          <a href="https://adffp.uk/mastodon" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-indigo-500 flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-mastodon text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-indigo-400 transition-colors">Mastodon</h3>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://adffp.uk/tiktok" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-white flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-tiktok text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-white transition-colors">TikTok</h3>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://adffp.uk/youtube" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-red-500 flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-youtube text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-red-400 transition-colors">YouTube</h3>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://adffp.uk/x" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-slate-200 flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-x-twitter text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-slate-300 transition-colors">X</h3>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://adffp.uk/threads" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-white flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-threads text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-slate-300 transition-colors">Threads</h3>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://adffp.uk/facebook" class="block group relative">
-            <div class="relative flex items-center p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-              <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-blue-600 flex items-center justify-center w-9 h-9 shadow-inner">
-                <i class="fa-brands fa-facebook-f text-lg"></i>
-              </div>
-              <div class="ml-3 flex-grow">
-                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-blue-500 transition-colors">Facebook</h3>
-              </div>
-            </div>
-          </a>
         </div>
       </div>
 
-      <!-- EXIF Overlay -->
-      <a href="https://adffp.uk/exif-o-g" class="animate-fade-in delay-700 block group relative mt-6">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-purple-400 flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-solid fa-image text-lg"></i>
+      <!-- SHOP CARD -->
+      <a href="#" class="bento-card group relative col-span-1 sm:col-span-1 md:col-span-1 rounded-[var(--radius-bento)] p-6 glass-panel hover:-translate-y-1 transition-all duration-300 animate-bento-in delay-400 flex flex-col justify-between overflow-hidden min-h-[160px]">
+        <div class="glow-layer absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-purple-500/10 opacity-0 z-0"></div>
+        <div class="relative z-10 flex justify-between items-start">
+          <div class="bg-slate-950/80 p-3 rounded-[var(--radius-icon)] border border-slate-800 shadow-inner">
+            <i class="fa-solid fa-cart-shopping text-2xl text-brand-primary"></i>
           </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-[#94fdf8] transition-colors">EXIF Overlay</h3>
-            <p class="text-xs text-slate-400">Clean Summaries for Every Photo!</p>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-sm text-slate-600 group-hover:text-[#94fdf8] transition-colors"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-brand-primary transition-colors"></i>
+        </div>
+        <div class="relative z-10 mt-6">
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">Store</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-1">Buy my products</p>
         </div>
       </a>
 
-      <!-- WhatsApp -->
-      <a href="https://adffp.uk/whatsapp" class="animate-fade-in delay-800 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-[#25D366] flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-          </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-[#25D366] transition-colors">WhatsApp</h3>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-sm text-slate-600 group-hover:text-[#25D366] transition-colors"></i>
+      <!-- BLOG CARD -->
+      <a href="#" class="bento-card group relative col-span-1 sm:col-span-1 md:col-span-2 rounded-[var(--radius-bento)] p-6 glass-panel hover:-translate-y-1 transition-all duration-300 animate-bento-in delay-500 flex items-center gap-4 overflow-hidden min-h-[120px] sm:min-h-[160px]">
+        <div class="glow-layer absolute inset-0 bg-gradient-to-r from-brand-secondary/10 to-brand-primary/10 opacity-0 z-0"></div>
+        <div class="relative z-10 bg-slate-950/80 p-4 rounded-[var(--radius-icon)] border border-slate-800 shadow-inner shrink-0">
+          <i class="fa-solid fa-blog text-2xl text-brand-secondary"></i>
         </div>
+        <div class="relative z-10 flex-grow">
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-secondary transition-colors">Read the Blog</h3>
+          <p class="text-sm text-slate-400 mt-1">Read my latest thoughts and articles!</p>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-brand-secondary transition-colors relative z-10 hidden sm:block"></i>
       </a>
 
-      <!-- Email -->
-      <a href="mailto:hello@fusedframe.co.uk" class="animate-fade-in delay-900 block group relative">
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-[#94fdf8] to-blue-600 rounded-xl opacity-0 group-hover:opacity-75 blur-2xl transition-opacity duration-300 glow-layer"></div>
-        <div class="relative flex items-center p-3.5 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition duration-200">
-          <div class="bg-slate-950/50 p-2 rounded-lg border border-slate-800 text-[#94fdf8] flex items-center justify-center w-10 h-10 shadow-inner">
-            <i class="fa-solid fa-envelope text-lg"></i>
-          </div>
-          <div class="ml-4 flex-grow">
-            <h3 class="font-semibold text-slate-100 group-hover:text-[#94fdf8] transition-colors">Email</h3>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-sm text-slate-600 group-hover:text-[#94fdf8] transition-colors"></i>
+      <!-- INFO CARD -->
+      <a href="#" class="bento-card group relative col-span-1 sm:col-span-1 md:col-span-1 rounded-[var(--radius-bento)] p-6 glass-panel hover:-translate-y-1 transition-all duration-300 animate-bento-in delay-600 flex flex-col justify-center items-center text-center overflow-hidden min-h-[120px]">
+        <div class="glow-layer absolute inset-0 bg-gradient-to-t from-purple-500/10 to-indigo-500/10 opacity-0 z-0"></div>
+        <div class="relative z-10 bg-slate-950/80 p-3 rounded-[var(--radius-icon)] border border-slate-800 shadow-inner mb-2">
+          <i class="fa-solid fa-info text-xl text-purple-400"></i>
         </div>
+        <h3 class="relative z-10 font-bold text-white group-hover:text-purple-300 transition-colors">More Info</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Click for details</p>
       </a>
+
+      <!-- CONTACT BUTTONS -->
+      <div class="col-span-1 sm:col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 animate-bento-in delay-700">
+        <!-- Message -->
+        <a href="https://WHATSAPP-LINK-HERE" class="bento-card group relative rounded-[var(--radius-bento)] p-5 glass-panel hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden">
+          <div class="glow-layer absolute inset-0 bg-gradient-to-r from-[#25D366]/10 to-emerald-500/10 opacity-0 z-0"></div>
+          <i class="fa-brands fa-whatsapp text-2xl text-[#25D366] relative z-10"></i>
+          <span class="font-bold text-slate-200 group-hover:text-[#25D366] transition-colors relative z-10">WhatsApp</span>
+        </a>
+        <!-- Email -->
+        <a href="mailto:email@example.com" class="bento-card group relative rounded-[var(--radius-bento)] p-5 glass-panel hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden">
+          <div class="glow-layer absolute inset-0 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 opacity-0 z-0"></div>
+          <i class="fa-solid fa-envelope text-xl text-brand-primary relative z-10"></i>
+          <span class="font-bold text-slate-200 group-hover:text-brand-primary transition-colors relative z-10">Email Me</span>
+        </a>
+      </div>
 
     </div>
 
-     <!--
-      Footer SECTION:
-      Edit the text below to change the Copyright Text, as well as the other policy links, and GitHub link.
-      -->
+    <!-- FOOTER -->
+    <footer class="mt-16 text-center text-slate-500 text-sm animate-bento-in delay-800 w-full">
+      <p class="text-slate-500 font-medium mb-4">© Your Name</p>
+      
+      <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-3 text-xs mb-10 px-4">
+        <a href="https://COPYRIGHT-LINK-HERE" class="hover:text-brand-primary transition px-2 py-1 rounded-md hover:bg-slate-800/50">Copyright</a>
+        <span class="text-slate-800">•</span>
+        <a href="https://PRIVACY-LINK-HERE" class="hover:text-brand-primary transition px-2 py-1 rounded-md hover:bg-slate-800/50">Privacy Policy</a>
+      </div>
 
-    <footer class="mt-10 text-center text-slate-500 text-sm animate-fade-in delay-1000 w-full">
-      <p class="text-slate-600 mb-3">© Adlai Dyson | Fused Frame Photography</p>
-      <div class="mb-3">
-        <a href="https://adffp.uk/copyright" class="hover:text-[#94fdf8] transition inline-block text-xs">Copyright Notice</a>
-      </div>
-      <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs mb-8">
-        <a href="https://adffp.uk/privacy-policy" class="hover:text-[#94fdf8] transition inline-block">Privacy Policy</a>
-        <span class="text-slate-800">•</span>
-        <a href="https://adffp.uk/cookie-policy" class="hover:text-[#94fdf8] transition inline-block">Cookie Policy</a>
-        <span class="text-slate-800">•</span>
-        <a href="https://adffp.uk/terms-conditions" class="hover:text-[#94fdf8] transition inline-block">Terms & Conditions</a>
-      </div>
-      <div class="border-t border-slate-800/50 pt-6">
-        <a href="https://adffp.uk/linktree-github" class="flex flex-col items-center justify-center gap-3 text-slate-500 hover:text-white transition-colors group">
-          <i class="fa-brands fa-github text-2xl group-hover:scale-110 transition-transform"></i>
-          <span class="text-xs">View this Open-Source project on GitHub and make it yourself</span>
+      <!-- GITHUB / OPEN SOURCE ATTRIBUTION -->
+      <div class="border-t border-slate-800/50 pt-8 pb-4">
+        <!-- DO NOT CHANGE THIS LINK -->
+        <a href="https://adffp.uk/linktree-github" class="inline-flex flex-col items-center justify-center gap-3 text-slate-500 hover:text-white transition-colors group">
+          <div class="bg-slate-900 p-3 rounded-full border border-slate-800 group-hover:border-slate-600 transition-colors">
+            <i class="fa-brands fa-github text-2xl group-hover:scale-110 transition-transform"></i>
+          </div>
+          <span class="text-xs">Open-Source Project</span>
         </a>
       </div>
     </footer>
@@ -344,7 +299,3 @@
   </main>
 </body>
 </html>
-
-<!-- Please credit Adlai Dyson | Fused Frame Photography as the original creator of this template by crediting in the repo, or leaving this text here, thank you! -->
-<!-- Website: www.fusedframe.co.uk -->
-<!-- Template Repo: adffp.uk/linktree-github -->
